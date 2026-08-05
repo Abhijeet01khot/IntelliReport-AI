@@ -292,7 +292,7 @@ MIT World Peace University
 
 # 👩‍🏫 Project Guide
 
-**Mrs. Apoorva**
+**Prof. Sukanya Akolkar**
 
 Faculty of MCA
 
