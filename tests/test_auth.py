@@ -1,9 +1,15 @@
+import uuid
+
 from auth.auth import (
     hash_password,
     verify_password,
     register_user,
     authenticate_user,
 )
+
+
+def unique_email(prefix):
+    return f"{prefix}_{uuid.uuid4().hex}@example.com"
 
 
 def test_password_hashing():
@@ -26,20 +32,22 @@ def test_password_hashes_are_different():
 
 
 def test_register_user():
+    email = unique_email("auth_test")
+
     success, message = register_user(
         "Auth Test User",
-        "auth_test@example.com",
+        email,
         "Password123!"
     )
 
-    assert success is True
+    assert success is True, message
     assert "success" in message.lower()
 
 
 def test_duplicate_email():
-    email = "duplicate_test@example.com"
+    email = unique_email("duplicate_test")
 
-    first_success, _ = register_user(
+    first_success, first_message = register_user(
         "First User",
         email,
         "Password123!"
@@ -51,22 +59,22 @@ def test_duplicate_email():
         "Password456!"
     )
 
-    assert first_success is True
+    assert first_success is True, first_message
     assert second_success is False
     assert "already" in second_message.lower()
 
 
 def test_authenticate_user():
-    email = "login_test@example.com"
+    email = unique_email("login_test")
     password = "LoginPassword123!"
 
-    success, _ = register_user(
+    success, message = register_user(
         "Login Test User",
         email,
         password
     )
 
-    assert success is True
+    assert success is True, message
 
     user = authenticate_user(
         email,
@@ -79,13 +87,15 @@ def test_authenticate_user():
 
 
 def test_wrong_password():
-    email = "wrong_password@example.com"
+    email = unique_email("wrong_password")
 
-    register_user(
+    success, message = register_user(
         "Wrong Password User",
         email,
         "CorrectPassword123!"
     )
+
+    assert success is True, message
 
     user = authenticate_user(
         email,
