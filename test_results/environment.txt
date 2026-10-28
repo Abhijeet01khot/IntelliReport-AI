@@ -1,0 +1,6 @@
+Python: 3.14.6 (tags/v3.14.6:c63aec6, Jun 10 2026, 10:26:10) [MSC v.1944 64 bit (AMD64)]
+Platform: Windows-11-10.0.26300-SP0
+Processor: AMD64 Family 25 Model 80 Stepping 0, AuthenticAMD
+Benchmark runs per operation: 5
+Generated at: 2026-10-21T11:06:49
+Note: local extraction/export only; no Gemini API calls were made.

@@ -173,6 +173,62 @@ def test_review_document_rejects_empty_text():
         raise AssertionError("Empty document text should be rejected")
 
 
+def test_file_size_boundary(self):
+    from utils.document_review import (
+        extract_document_text,
+        MAX_FILE_SIZE,
+    )
+
+    # One byte over the configured maximum must be rejected.
+    oversized = b"x" * (MAX_FILE_SIZE + 1)
+
+    try:
+        extract_document_text("sample.docx", oversized)
+        raise AssertionError("Oversized upload should have been rejected.")
+    except ValueError as error:
+        assert "10 MB" in str(error)
+
+
+def test_file_exactly_at_size_limit_passes_size_validation(self):
+    from utils.document_review import (
+        extract_document_text,
+        MAX_FILE_SIZE,
+    )
+
+    # Use a valid DOCX padded with harmless ZIP comment bytes.
+    from io import BytesIO
+    from docx import Document
+
+    buffer = BytesIO()
+    document = Document()
+    document.add_paragraph("Boundary test document.")
+    document.save(buffer)
+
+    original = buffer.getvalue()
+
+    # DOCX is a ZIP file; append bytes without modifying the ZIP contents.
+    # The ZIP end-of-central-directory comment length is limited to 65535.
+    padding_size = MAX_FILE_SIZE - len(original)
+    if padding_size < 0 or padding_size > 65535:
+        self.skipTest("Sample DOCX cannot be padded to the exact size limit.")
+
+    # Create a valid archive comment of the required size.
+    import struct
+
+    data = bytearray(original)
+    eocd = data.rfind(b"PK\x05\x06")
+    if eocd < 0:
+        self.fail("Could not locate ZIP end-of-central-directory record.")
+
+    data[eocd + 20:eocd + 22] = struct.pack("<H", padding_size)
+    data.extend(b"x" * padding_size)
+
+    self.assertEqual(len(data), MAX_FILE_SIZE)
+
+    text = extract_document_text("sample.docx", bytes(data))
+    self.assertIn("Boundary test document", text)
+
+
 if __name__ == "__main__":
     test_extract_docx_text()
     test_extract_pdf_text()

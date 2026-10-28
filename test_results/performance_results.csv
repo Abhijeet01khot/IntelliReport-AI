@@ -1,0 +1,4 @@
+operation,runs,mean_seconds,median_seconds,min_seconds,max_seconds,status,timestamp
+DOCX text extraction,5,0.014075,0.013952,0.01342,0.015198,PASS,2026-10-21T11:06:48
+Review PDF export,5,0.002668,0.002273,0.002211,0.004088,PASS,2026-10-21T11:06:48
+Review DOCX export,5,0.022322,0.01807,0.017503,0.038219,PASS,2026-10-21T11:06:48
