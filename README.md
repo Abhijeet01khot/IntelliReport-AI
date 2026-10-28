@@ -1,4 +1,4 @@
-# 🤖 IntelliReport AI
+﻿# ðŸ¤– IntelliReport AI
 
 > **Production-Style Multi-Agent AI Report Generation and Document Review System**
 
@@ -8,15 +8,15 @@ The application includes user authentication, SQLite-based report storage, analy
 
 ---
 
-## 📸 Application Screenshots
+## ðŸ“¸ Application Screenshots
 
 ### Login and Authentication
 ![IntelliReport AI Login Page](screenshots/login.png)
 
-### Main Dashboard — Document Review
+### Main Dashboard â€” Document Review
 ![IntelliReport AI Document Review Dashboard](screenshots/homepage02.png)
 
-### Main Dashboard — Report Generation
+### Main Dashboard â€” Report Generation
 ![IntelliReport AI Report Generation Dashboard](screenshots/homepage01.png)
 
 ### Document Review Results
@@ -29,56 +29,56 @@ The application includes user authentication, SQLite-based report storage, analy
 
 ---
 
-## 📌 Project Overview
+## ðŸ“Œ Project Overview
 
 IntelliReport AI divides report generation into multiple specialized stages rather than relying on a single prompt. The LangGraph workflow coordinates the agents and assembles the final report.
 
 The current application supports two main tasks:
 
-- **Generate Report** — create a structured report from a user-provided topic.
-- **Review Existing Document** — upload a PDF or Word document for AI-assisted review and download the review output.
+- **Generate Report** â€” create a structured report from a user-provided topic.
+- **Review Existing Document** â€” upload a PDF or Word document for AI-assisted review and download the review output.
 
 Authenticated users can access their own stored reports. The application also provides execution information and agent activity for supported workflows.
 
-## 🚀 Features
+## ðŸš€ Features
 
-- 🔍 AI-powered research stage
-- 📝 Automatic report outline generation
-- ✍️ Report writing
-- 📝 Grammar and language improvement
-- ✔️ AI-assisted fact-checking stage
-- 📚 Citation generation
-- 🧐 Report review
-- 📄 Review of uploaded PDF and DOCX documents
-- 📊 Workflow analytics and agent activity
-- 📥 PDF export
-- 📝 Microsoft Word (`.docx`) export
-- 🔐 User registration and login
-- 🔑 Password hashing and verification
-- 👤 User session management and logout
-- 🗄️ SQLite database for user and report records
-- 🔒 User-specific report access
-- 🧪 Automated tests for authentication, database, document review, exports, and integration
-- ⚙️ Local performance benchmarks for selected document-processing and export operations
-- 🎨 Streamlit user interface
-- 🤖 Google Gemini AI integration
-- 🔄 LangGraph multi-agent workflow
+- ðŸ” AI-powered research stage
+- ðŸ“ Automatic report outline generation
+- âœï¸ Report writing
+- ðŸ“ Grammar and language improvement
+- âœ”ï¸ AI-assisted fact-checking stage
+- ðŸ“š Citation generation
+- ðŸ§ Report review
+- ðŸ“„ Review of uploaded PDF and DOCX documents
+- ðŸ“Š Workflow analytics and agent activity
+- ðŸ“¥ PDF export
+- ðŸ“ Microsoft Word (`.docx`) export
+- ðŸ” User registration and login
+- ðŸ”‘ Password hashing and verification
+- ðŸ‘¤ User session management and logout
+- ðŸ—„ï¸ SQLite database for user and report records
+- ðŸ”’ User-specific report access
+- ðŸ§ª Automated tests for authentication, database, document review, exports, and integration
+- âš™ï¸ Local performance benchmarks for selected document-processing and export operations
+- ðŸŽ¨ Streamlit user interface
+- ðŸ¤– Google Gemini AI integration
+- ðŸ”„ LangGraph multi-agent workflow
 
 **Important:** AI-generated claims and citations may be incorrect. The fact-checking stage should not be treated as definitive independent verification, and citations should be checked against their original sources.
 
 ---
 
-## 🧠 Seven-Agent Report Generation Workflow
+## ðŸ§  Seven-Agent Report Generation Workflow
 
 The report-generation workflow contains these agents:
 
-1. **Research Agent** — prepares research content for the requested topic.
-2. **Outline Agent** — organizes the report structure.
-3. **Writer Agent** — drafts report content.
-4. **Grammar Agent** — improves language and readability.
-5. **Fact Checker Agent** — reviews factual claims.
-6. **Citation Agent** — generates citation content.
-7. **Reviewer Agent** — reviews the resulting report.
+1. **Research Agent** â€” prepares research content for the requested topic.
+2. **Outline Agent** â€” organizes the report structure.
+3. **Writer Agent** â€” drafts report content.
+4. **Grammar Agent** â€” improves language and readability.
+5. **Fact Checker Agent** â€” reviews factual claims.
+6. **Citation Agent** â€” generates citation content.
+7. **Reviewer Agent** â€” reviews the resulting report.
 
 The workflow assembles the final report and supports saving and exporting the result.
 
@@ -118,7 +118,7 @@ The existing-document review workflow is separate from the report-generation wor
 
 ---
 
-## 🔐 Authentication and Security
+## ðŸ” Authentication and Security
 
 IntelliReport AI provides account creation, login, logout, and protected application access.
 
@@ -132,7 +132,7 @@ The authentication implementation includes:
 
 Passwords should not be stored as plain text. Keep API keys and other secrets out of source control.
 
-## 🗄️ Database
+## ðŸ—„ï¸ Database
 
 The application uses SQLite for local persistence. The database is created at:
 
@@ -169,7 +169,7 @@ The local database and generated output files should not be committed to GitHub.
 
 ---
 
-## 🛠 Technology Stack
+## ðŸ›  Technology Stack
 
 | Technology | Purpose |
 |---|---|
@@ -188,59 +188,59 @@ The local database and generated output files should not be committed to GitHub.
 
 ---
 
-## 📂 Project Structure
+## ðŸ“‚ Project Structure
 
 ```text
 IntelliReport-AI/
-├── agents/
-│   ├── research_agent.py
-│   ├── outline_agent.py
-│   ├── writer_agent.py
-│   ├── grammar_agent.py
-│   ├── fact_checker_agent.py
-│   ├── citation_agent.py
-│   └── reviewer_agent.py
-├── auth/
-├── database/
-├── graph/
-│   ├── workflow.py
-│   └── state.py
-├── ui/
-├── utils/
-│   ├── llm.py
-│   ├── export_pdf.py
-│   └── export_docx.py
-├── tests/
-│   ├── test_auth.py
-│   ├── test_auth_ui.py
-│   ├── test_database.py
-│   ├── test_document_review.py
-│   ├── test_exports.py
-│   └── test_integration.py
-├── performance/
-│   └── benchmark.py
-├── test_results/
-│   ├── environment.txt
-│   └── performance_results.csv
-├── screenshots/
-│   ├── login.png
-│   ├── homepage01.png
-│   ├── homepage02.png
-│   ├── output01.png
-│   └── output02.png
-├── assets/
-│   └── logo.jpg
-├── app.py
-├── requirements.txt
-├── TESTING_AND_PERFORMANCE.md
-└── README.md
+â”œâ”€â”€ agents/
+â”‚   â”œâ”€â”€ research_agent.py
+â”‚   â”œâ”€â”€ outline_agent.py
+â”‚   â”œâ”€â”€ writer_agent.py
+â”‚   â”œâ”€â”€ grammar_agent.py
+â”‚   â”œâ”€â”€ fact_checker_agent.py
+â”‚   â”œâ”€â”€ citation_agent.py
+â”‚   â””â”€â”€ reviewer_agent.py
+â”œâ”€â”€ auth/
+â”œâ”€â”€ database/
+â”œâ”€â”€ graph/
+â”‚   â”œâ”€â”€ workflow.py
+â”‚   â””â”€â”€ state.py
+â”œâ”€â”€ ui/
+â”œâ”€â”€ utils/
+â”‚   â”œâ”€â”€ llm.py
+â”‚   â”œâ”€â”€ export_pdf.py
+â”‚   â””â”€â”€ export_docx.py
+â”œâ”€â”€ tests/
+â”‚   â”œâ”€â”€ test_auth.py
+â”‚   â”œâ”€â”€ test_auth_ui.py
+â”‚   â”œâ”€â”€ test_database.py
+â”‚   â”œâ”€â”€ test_document_review.py
+â”‚   â”œâ”€â”€ test_exports.py
+â”‚   â””â”€â”€ test_integration.py
+â”œâ”€â”€ performance/
+â”‚   â””â”€â”€ benchmark.py
+â”œâ”€â”€ test_results/
+â”‚   â”œâ”€â”€ environment.txt
+â”‚   â””â”€â”€ performance_results.csv
+â”œâ”€â”€ screenshots/
+â”‚   â”œâ”€â”€ login.png
+â”‚   â”œâ”€â”€ homepage01.png
+â”‚   â”œâ”€â”€ homepage02.png
+â”‚   â”œâ”€â”€ output01.png
+â”‚   â””â”€â”€ output02.png
+â”œâ”€â”€ assets/
+â”‚   â””â”€â”€ logo.jpg
+â”œâ”€â”€ app.py
+â”œâ”€â”€ requirements.txt
+â”œâ”€â”€ TESTING_AND_PERFORMANCE.md
+â””â”€â”€ README.md
 ```
 
 This is a high-level view; individual files may vary as the project evolves. Local configuration files, virtual environments, databases, and generated outputs should remain excluded from version control where appropriate.
 
 ---
 
-## ⚙️ Installation
+## âš™ï¸ Installation
 
 ### Prerequisites
 
@@ -284,7 +284,7 @@ Replace the placeholder with your own key. Confirm that this variable name match
 
 ---
 
-## ▶️ Run the Application
+## â–¶ï¸ Run the Application
 
 From the project root with the virtual environment activated:
 
@@ -298,7 +298,7 @@ Open the local URL printed in the terminal, usually:
 http://localhost:8501
 ```
 
-## 🔑 First-Time Login
+## ðŸ”‘ First-Time Login
 
 1. Open the application.
 2. Select the create-account option.
@@ -311,7 +311,7 @@ Follow the password requirements shown by the application.
 
 ---
 
-## 🧪 Testing
+## ðŸ§ª Testing
 
 The project includes automated tests for database operations, authentication, document review, exports, and integration paths.
 
@@ -334,7 +334,7 @@ python -m compileall -q app.py graph utils tests performance
 
 For the test scope, benchmark methodology, and recorded performance measurements, see [`TESTING_AND_PERFORMANCE.md`](TESTING_AND_PERFORMANCE.md).
 
-## ⚡ Performance Evaluation
+## âš¡ Performance Evaluation
 
 The included benchmark script measures selected local operations, including DOCX text extraction and PDF/DOCX export. The recorded results are available in `test_results/performance_results.csv`.
 
@@ -348,7 +348,7 @@ python performance/benchmark.py
 
 ---
 
-## 🔮 Future Enhancements
+## ðŸ”® Future Enhancements
 
 Potential future improvements include:
 
@@ -364,7 +364,7 @@ Potential future improvements include:
 
 These are potential enhancements and should not be interpreted as features already implemented.
 
-## 🎯 Learning Outcomes
+## ðŸŽ¯ Learning Outcomes
 
 This project demonstrates practical work with:
 
@@ -381,24 +381,24 @@ This project demonstrates practical work with:
 
 ---
 
-## 👨‍💻 Authors
+## ðŸ‘¨â€ðŸ’» Authors
 
-**Abhijeet Khot**  
+**Abhijeet Khot**
 SY MCA, MIT World Peace University
 
-**Nivedita Deshpande**  
+**Nivedita Deshpande**
 SY MCA, MIT World Peace University
 
-## 👩‍🏫 Project Guide
+## ðŸ‘©â€ðŸ« Project Guide
 
-**Prof. Sukanya Akolkar**  
+**Prof. Sukanya Akolkar**
 Faculty of MCA, MIT World Peace University
 
-## 📄 Academic Use
+## ðŸ“„ Academic Use
 
 This project was developed for academic purposes as part of the MCA Mini Project at MIT World Peace University.
 
-## 🙏 Acknowledgements
+## ðŸ™ Acknowledgements
 
 - Google Gemini AI
 - LangChain
@@ -409,4 +409,4 @@ This project was developed for academic purposes as part of the MCA Mini Project
 
 ---
 
-> **IntelliReport AI — Transforming ideas into professional reports through multi-agent artificial intelligence.**
+> **IntelliReport AI â€” Transforming ideas into professional reports through multi-agent artificial intelligence.**
