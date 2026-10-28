@@ -2,6 +2,8 @@
 
 > **Production-Style Multi-Agent AI Report Generation and Document Review System**
 
+🚀 **Live Demo:** [IntelliReport AI](https://intellireport-ai-jgxptgtt7yup22giykkjae.streamlit.app/)
+
 IntelliReport AI is a Streamlit application that uses Google's Gemini AI and LangGraph to coordinate a seven-agent workflow for researching, outlining, writing, improving, checking, citing, and reviewing reports. It also supports AI-assisted review of existing PDF and Word documents.
 
 The application includes user authentication, SQLite-based report storage, analytics, and downloadable PDF and Word outputs.
