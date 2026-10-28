@@ -1,230 +1,198 @@
 # 🤖 IntelliReport AI
 
-> **Production-Style Multi-Agent AI Report Generation System**
+> **Production-Style Multi-Agent AI Report Generation and Document Review System**
 
-IntelliReport AI is a Multi-Agent AI application that automatically researches, plans, writes, improves, verifies, and reviews professional reports using Google's Gemini AI and LangGraph.
+IntelliReport AI is a Streamlit application that uses Google's Gemini AI and LangGraph to coordinate a seven-agent workflow for researching, outlining, writing, improving, checking, citing, and reviewing reports. It also supports AI-assisted review of existing PDF and Word documents.
 
-The application provides a Streamlit interface with secure user authentication, persistent report storage, analytics, and downloadable PDF and Word reports.
-
----
-
-# 📌 Project Overview
-
-IntelliReport AI is designed to automate the complete report generation process using multiple specialized AI agents.
-
-Instead of relying on a single prompt, the system divides the task into multiple intelligent stages, resulting in higher-quality, well-structured, and professionally reviewed reports.
-
-The project demonstrates the practical implementation of Multi-Agent AI Systems using LangGraph.
-
-The current version also includes user authentication and SQLite-based report persistence, allowing each user to securely access their own generated reports.
+The application includes user authentication, SQLite-based report storage, analytics, and downloadable PDF and Word outputs.
 
 ---
 
-# 🚀 Features
+## 📸 Application Screenshots
 
-- 🔍 AI-powered Research Agent
-- 📝 Automatic Report Outline Generation
-- ✍️ Professional Technical Report Writing
-- 📝 Grammar & Language Improvement
-- ✔️ AI Fact Checking
-- 📚 Automatic Citation Generation
-- 🧐 AI Report Review
-- 📊 Analytics Dashboard
-- 📄 PDF Export
-- 📝 Microsoft Word (.docx) Export
-- 🔐 User Registration and Login
-- 🔑 Secure Password Hashing
-- 👤 User Session Management
-- 🚪 Logout Functionality
-- 🗄️ SQLite Database
-- 📚 Persistent Report Storage
-- 🔒 User-Specific Report Access
-- 🧪 Authentication and Database Tests
-- 🎨 Professional Streamlit UI
-- 🤖 Powered by Google Gemini AI
-- 🔄 LangGraph Multi-Agent Workflow
+### Login and Authentication
+![IntelliReport AI Login Page](screenshots/login.png)
+
+### Main Dashboard — Document Review
+![IntelliReport AI Document Review Dashboard](screenshots/homepage02.png)
+
+### Main Dashboard — Report Generation
+![IntelliReport AI Report Generation Dashboard](screenshots/homepage01.png)
+
+### Document Review Results
+![IntelliReport AI Document Review Results](screenshots/output01.png)
+
+### Agent Activity and Download Options
+![IntelliReport AI Agent Activity and Download Options](screenshots/output02.png)
+
+> Screenshots show the application interface and example workflow output. Avoid including real credentials, API keys, or sensitive document content in screenshots.
 
 ---
 
-# 🔐 Authentication System
+## 📌 Project Overview
 
-IntelliReport AI includes a secure authentication system that protects access to the report generation application.
+IntelliReport AI divides report generation into multiple specialized stages rather than relying on a single prompt. The LangGraph workflow coordinates the agents and assembles the final report.
 
-Users must create an account and log in before accessing the main application.
+The current application supports two main tasks:
 
-### Authentication Flow
+- **Generate Report** — create a structured report from a user-provided topic.
+- **Review Existing Document** — upload a PDF or Word document for AI-assisted review and download the review output.
+
+Authenticated users can access their own stored reports. The application also provides execution information and agent activity for supported workflows.
+
+## 🚀 Features
+
+- 🔍 AI-powered research stage
+- 📝 Automatic report outline generation
+- ✍️ Report writing
+- 📝 Grammar and language improvement
+- ✔️ AI-assisted fact-checking stage
+- 📚 Citation generation
+- 🧐 Report review
+- 📄 Review of uploaded PDF and DOCX documents
+- 📊 Workflow analytics and agent activity
+- 📥 PDF export
+- 📝 Microsoft Word (`.docx`) export
+- 🔐 User registration and login
+- 🔑 Password hashing and verification
+- 👤 User session management and logout
+- 🗄️ SQLite database for user and report records
+- 🔒 User-specific report access
+- 🧪 Automated tests for authentication, database, document review, exports, and integration
+- ⚙️ Local performance benchmarks for selected document-processing and export operations
+- 🎨 Streamlit user interface
+- 🤖 Google Gemini AI integration
+- 🔄 LangGraph multi-agent workflow
+
+**Important:** AI-generated claims and citations may be incorrect. The fact-checking stage should not be treated as definitive independent verification, and citations should be checked against their original sources.
+
+---
+
+## 🧠 Seven-Agent Report Generation Workflow
+
+The report-generation workflow contains these agents:
+
+1. **Research Agent** — prepares research content for the requested topic.
+2. **Outline Agent** — organizes the report structure.
+3. **Writer Agent** — drafts report content.
+4. **Grammar Agent** — improves language and readability.
+5. **Fact Checker Agent** — reviews factual claims.
+6. **Citation Agent** — generates citation content.
+7. **Reviewer Agent** — reviews the resulting report.
+
+The workflow assembles the final report and supports saving and exporting the result.
 
 ```text
-                 ┌───────────────────┐
-                 │    IntelliReport  │
-                 │        AI         │
-                 └─────────┬─────────┘
-                           │
-                           ▼
-                 ┌───────────────────┐
-                 │   Login / Signup  │
-                 └─────────┬─────────┘
-                           │
-                  ┌────────┴────────┐
-                  │                 │
-                  ▼                 ▼
-             Create Account      Login
-                  │                 │
-                  ▼                 ▼
-           Password Hashing    Verify Password
-                  │                 │
-                  └────────┬────────┘
-                           │
-                           ▼
-                 ┌───────────────────┐
-                 │ Authenticated     │
-                 │     User          │
-                 └─────────┬─────────┘
-                           │
-                           ▼
-                 ┌───────────────────┐
-                 │ IntelliReport AI  │
-                 │ Main Application  │
-                 └───────────────────┘
+User Topic
+    |
+    v
+Research Agent
+    |
+    v
+Outline Agent
+    |
+    v
+Writer Agent
+    |
+    v
+Grammar Agent
+    |
+    v
+Fact Checker Agent
+    |
+    v
+Citation Agent
+    |
+    v
+Reviewer Agent
+    |
+    v
+Final Report
+    |
+    +----> SQLite report storage
+    |
+    +----> PDF / DOCX export
 ```
 
-### Security
+The existing-document review workflow is separate from the report-generation workflow and processes an uploaded PDF or DOCX document through the document-review pipeline.
 
-Passwords are not stored as plain text.
+---
 
-The application uses:
+## 🔐 Authentication and Security
+
+IntelliReport AI provides account creation, login, logout, and protected application access.
+
+The authentication implementation includes:
 
 - PBKDF2-HMAC-SHA256 password hashing
 - Random password salts
-- Secure password verification
+- Password verification
 - Case-normalized email handling
-- Protected application access
 - User ownership checks for stored reports
 
----
+Passwords should not be stored as plain text. Keep API keys and other secrets out of source control.
 
-# 🗄️ Database System
+## 🗄️ Database
 
-IntelliReport AI uses SQLite for local persistence.
-
-The database is automatically created inside:
+The application uses SQLite for local persistence. The database is created at:
 
 ```text
 data/intellireport.db
 ```
 
-### Database Tables
+The database includes user and report records.
 
-#### `users`
-
-Stores authenticated user information.
+### `users`
 
 | Field | Description |
-|------|-------------|
+|---|---|
 | `id` | Unique user ID |
 | `name` | User name |
 | `email` | Unique email address |
-| `password_hash` | Securely hashed password |
+| `password_hash` | Hashed password |
 | `created_at` | Account creation time |
 
-#### `reports`
-
-Stores reports generated by authenticated users.
+### `reports`
 
 | Field | Description |
-|------|-------------|
+|---|---|
 | `id` | Unique report ID |
-| `user_id` | Owner of the report |
+| `user_id` | User who owns the report |
 | `topic` | Report topic |
-| `report` | Generated report |
+| `report` | Generated report content |
 | `review` | Reviewer feedback |
 | `created_at` | Report creation time |
 | `execution_time` | Workflow execution time |
 | `word_count` | Report word count |
 
-Each report is linked to the user who generated it.
+The local database and generated output files should not be committed to GitHub. On hosting platforms with ephemeral filesystems, local SQLite data may not persist through restarts or redeployments; use a suitable persistent database if durable cloud storage is required.
 
 ---
 
-# 🧠 Multi-Agent Workflow
-
-```text
-User Input
-     │
-     ▼
-┌──────────────────────┐
-│   Research Agent     │
-└──────────────────────┘
-           │
-           ▼
-┌──────────────────────┐
-│    Outline Agent     │
-└──────────────────────┘
-           │
-           ▼
-┌──────────────────────┐
-│     Writer Agent     │
-└──────────────────────┘
-           │
-           ▼
-┌──────────────────────┐
-│     Grammar Agent    │
-└──────────────────────┘
-           │
-           ▼
-┌──────────────────────┐
-│  Fact Checker Agent  │
-└──────────────────────┘
-           │
-           ▼
-┌──────────────────────┐
-│    Citation Agent    │
-└──────────────────────┘
-           │
-           ▼
-┌──────────────────────┐
-│    Reviewer Agent    │
-└──────────────────────┘
-           │
-           ▼
-      Final Report
-           │
-           ▼
-     Save to SQLite
-           │
-           ▼
-      PDF / DOCX
-```
-
-The LangGraph workflow coordinates all seven specialized AI agents.
-
----
-
-# 🛠 Tech Stack
+## 🛠 Technology Stack
 
 | Technology | Purpose |
-|------------|---------|
-| Python | Programming Language |
-| Streamlit | Web Application Interface |
-| LangGraph | Multi-Agent Workflow |
-| LangChain | LLM Integration |
-| Google Gemini AI | Large Language Model |
-| SQLite | User and Report Persistence |
-| PBKDF2-HMAC-SHA256 | Password Hashing |
-| ReportLab | PDF Generation |
-| python-docx | Word Export |
-| Pillow | Image Processing |
-| python-dotenv | Environment Variables |
-| Git / GitHub | Version Control |
+|---|---|
+| Python | Application programming language |
+| Streamlit | Web application interface |
+| LangGraph | Multi-agent workflow orchestration |
+| LangChain | LLM integration |
+| Google Gemini AI | Language model |
+| SQLite | Local user and report persistence |
+| PBKDF2-HMAC-SHA256 | Password hashing |
+| ReportLab | PDF generation |
+| `python-docx` | Word document export |
+| Pillow | Image processing |
+| `python-dotenv` | Local environment variable loading |
+| Git and GitHub | Version control |
 
 ---
 
-# 📂 Project Structure
+## 📂 Project Structure
 
 ```text
-IntelliReport-AI
-│
-├── agents
+IntelliReport-AI/
+├── agents/
 │   ├── research_agent.py
 │   ├── outline_agent.py
 │   ├── writer_agent.py
@@ -232,360 +200,213 @@ IntelliReport-AI
 │   ├── fact_checker_agent.py
 │   ├── citation_agent.py
 │   └── reviewer_agent.py
-│
-├── graph
+├── auth/
+├── database/
+├── graph/
 │   ├── workflow.py
 │   └── state.py
-│
-├── utils
+├── ui/
+├── utils/
 │   ├── llm.py
 │   ├── export_pdf.py
 │   └── export_docx.py
-│
-├── auth
-│   ├── __init__.py
-│   └── auth.py
-│
-├── database
-│   ├── __init__.py
-│   └── database.py
-│
-├── ui
-│   ├── __init__.py
-│   ├── auth_ui.py
-│   └── theme.py
-│
-├── tests
-│   ├── __init__.py
+├── tests/
 │   ├── test_auth.py
 │   ├── test_auth_ui.py
-│   └── test_database.py
-│
-├── data
-│   └── intellireport.db
-│
-├── assets
+│   ├── test_database.py
+│   ├── test_document_review.py
+│   ├── test_exports.py
+│   └── test_integration.py
+├── performance/
+│   └── benchmark.py
+├── test_results/
+│   ├── environment.txt
+│   └── performance_results.csv
+├── screenshots/
+│   ├── login.png
+│   ├── homepage01.png
+│   ├── homepage02.png
+│   ├── output01.png
+│   └── output02.png
+├── assets/
 │   └── logo.jpg
-│
-├── output
-│
 ├── app.py
 ├── requirements.txt
-├── README.md
-├── .env
-└── .gitignore
+├── TESTING_AND_PERFORMANCE.md
+└── README.md
 ```
 
-> Note: The local SQLite database and generated output files are intended to remain local and should not be committed to GitHub.
+This is a high-level view; individual files may vary as the project evolves. Local configuration files, virtual environments, databases, and generated outputs should remain excluded from version control where appropriate.
 
 ---
 
-# ⚙️ Installation
+## ⚙️ Installation
 
-## Clone Repository
+### Prerequisites
+
+- Python installed on your system
+- A Google Gemini API key
+- Git
+
+### 1. Clone the repository
 
 ```bash
 git clone https://github.com/Abhijeet01khot/IntelliReport-AI.git
-
 cd IntelliReport-AI
 ```
 
----
+### 2. Create and activate a virtual environment
 
-## Create Virtual Environment
+**Windows PowerShell:**
 
-### Windows
-
-```bash
+```powershell
 python -m venv venv
-
-venv\Scripts\activate
+.\venv\Scripts\Activate.ps1
 ```
 
----
+### 3. Install dependencies
 
-## Install Dependencies
-
-```bash
+```powershell
 pip install -r requirements.txt
 ```
 
----
+### 4. Configure your Gemini API key
 
-## Configure Environment Variables
-
-Create a `.env` file in the project root.
+For local development, create a `.env` file in the project root if the application configuration uses `python-dotenv`:
 
 ```env
 GOOGLE_API_KEY=YOUR_GEMINI_API_KEY
 ```
 
-Replace `YOUR_GEMINI_API_KEY` with your Google Gemini API key.
+Replace the placeholder with your own key. Confirm that this variable name matches the one read by the application's LLM configuration.
+
+**Never commit `.env`, API keys, passwords, or other secrets to GitHub.** For a hosted deployment, configure secrets through the hosting platform rather than hardcoding credentials.
 
 ---
 
-# ▶️ Run the Application
+## ▶️ Run the Application
 
-Start the Streamlit application using:
+From the project root with the virtual environment activated:
 
-```bash
+```powershell
 python -m streamlit run app.py
 ```
 
-The application will normally be available at:
+Open the local URL printed in the terminal, usually:
 
 ```text
 http://localhost:8501
 ```
 
----
+## 🔑 First-Time Login
 
-# 🔑 First-Time Login
+1. Open the application.
+2. Select the create-account option.
+3. Enter your name, email address, and password.
+4. Sign in using the account you created.
+5. Choose **Generate Report** or **Review Existing Document**.
+6. Log out when finished.
 
-When the application is opened for the first time, a new user must create an account.
-
-### Step 1 — Create an Account
-
-Provide:
-
-- Name
-- Email address
-- Password
-
-Passwords must contain at least 8 characters.
-
-### Step 2 — Login
-
-Use the registered email address and password.
-
-### Step 3 — Access the Application
-
-After successful authentication, the user can access the report generation system.
-
-### Step 4 — Logout
-
-Users can securely log out from the application.
+Follow the password requirements shown by the application.
 
 ---
 
-# 📊 Application Features
+## 🧪 Testing
 
-## ✅ User Authentication
+The project includes automated tests for database operations, authentication, document review, exports, and integration paths.
 
-Users can:
+Run the test modules from the project root:
 
-- Create an account
-- Login securely
-- Logout
-- Access protected application features
-
----
-
-## ✅ Generate Professional Reports
-
-Generate comprehensive AI-powered reports on any topic through the seven-agent workflow.
-
----
-
-## ✅ Persistent Report Storage
-
-Generated reports are stored in SQLite and associated with the authenticated user.
-
-This allows report information to remain available between application sessions.
-
----
-
-## ✅ AI Review
-
-Automatically reviews generated reports for:
-
-- Grammar
-- Technical Accuracy
-- Missing Sections
-- Readability
-- Professional Writing Style
-
----
-
-## ✅ Analytics Dashboard
-
-Displays:
-
-- Execution Time
-- Word Count
-- Number of AI Agents Used
-
----
-
-## ✅ Export Options
-
-Download reports as:
-
-- PDF
-- Microsoft Word (`.docx`)
-
----
-
-# 🧪 Testing
-
-The project includes tests for authentication and database functionality.
-
-Run the database tests:
-
-```bash
+```powershell
 python -m tests.test_database
-```
-
-Run the authentication tests:
-
-```bash
 python -m tests.test_auth
-```
-
-Run the authentication UI dependency test:
-
-```bash
 python -m tests.test_auth_ui
+python -m tests.test_document_review
+python -m tests.test_exports
+python -m tests.test_integration
 ```
 
-These tests verify important functionality such as:
+Run a Python compilation check:
 
-- Password hashing
-- Password verification
-- User registration
-- Duplicate email prevention
-- User authentication
-- Database operations
-- Report storage
-- User-specific report access
-
----
-
-# 📸 Screenshots
-
-Add screenshots here.
-
-### Login Page
-
-```text
-screenshots/login.png
+```powershell
+python -m compileall -q app.py graph utils tests performance
 ```
 
-### Create Account Page
+For the test scope, benchmark methodology, and recorded performance measurements, see [`TESTING_AND_PERFORMANCE.md`](TESTING_AND_PERFORMANCE.md).
 
-```text
-screenshots/signup.png
-```
+## ⚡ Performance Evaluation
 
-### Home Page
+The included benchmark script measures selected local operations, including DOCX text extraction and PDF/DOCX export. The recorded results are available in `test_results/performance_results.csv`.
 
-```text
-screenshots/home.png
-```
+These measurements are not end-to-end report-generation timings and do not measure Gemini API latency. Results depend on the local machine and environment.
 
-### Generated Report
+To run the benchmark:
 
-```text
-screenshots/report.png
-```
-
-### Analytics Dashboard
-
-```text
-screenshots/analytics.png
-```
-
-### AI Review
-
-```text
-screenshots/review.png
+```powershell
+python performance/benchmark.py
 ```
 
 ---
 
-# 🔮 Future Enhancements
+## 🔮 Future Enhancements
 
-- React + Vite Frontend
-- FastAPI Backend
-- Real-Time Web Search
-- Multiple AI Model Support
-- PowerPoint Export
-- Citation using Research APIs
-- Cloud Deployment
-- Report Templates
-- AI Chat Assistant
-- Advanced Report Management
-- Cloud Database Support
+Potential future improvements include:
 
----
+- Real-time web search and source-grounded research
+- Additional AI model support
+- PowerPoint export
+- Citation verification through research APIs
+- Report templates
+- AI chat assistant
+- Advanced report management
+- Persistent cloud database support
+- Frontend/backend separation
 
-# 🎯 Learning Outcomes
+These are potential enhancements and should not be interpreted as features already implemented.
 
-This project demonstrates practical knowledge of:
+## 🎯 Learning Outcomes
 
-- Multi-Agent AI Systems
-- LangGraph
-- LangChain
-- Prompt Engineering
-- LLM Orchestration
-- Streamlit Development
-- User Authentication
-- Password Security
-- SQLite Database Management
-- Persistent Data Storage
-- PDF Generation
-- Word Document Generation
-- AI Workflow Automation
-- Software Testing
+This project demonstrates practical work with:
+
+- Multi-agent AI systems
+- LangGraph and LangChain
+- Prompt engineering and LLM orchestration
+- Streamlit application development
+- User authentication and password security
+- SQLite database management
+- PDF and Word document generation
+- AI workflow automation
+- Automated software testing and performance benchmarking
 - Git and GitHub
 
 ---
 
-# 👨‍💻 Authors
+## 👨‍💻 Authors
 
-### Abhijeet Khot
+**Abhijeet Khot**  
+SY MCA, MIT World Peace University
 
-SY MCA
+**Nivedita Deshpande**  
+SY MCA, MIT World Peace University
 
-MIT World Peace University
+## 👩‍🏫 Project Guide
 
----
+**Prof. Sukanya Akolkar**  
+Faculty of MCA, MIT World Peace University
 
-### Nivedita Deshpande
+## 📄 Academic Use
 
-SY MCA
+This project was developed for academic purposes as part of the MCA Mini Project at MIT World Peace University.
 
-MIT World Peace University
-
----
-
-# 👩‍🏫 Project Guide
-
-**Prof. Sukanya Akolkar**
-
-Faculty of MCA
-
-MIT World Peace University
-
----
-
-# 📄 License
-
-This project is developed for academic purposes as part of the MCA Mini Project at MIT World Peace University.
-
----
-
-# ⭐ Acknowledgements
+## 🙏 Acknowledgements
 
 - Google Gemini AI
 - LangChain
 - LangGraph
 - Streamlit
 - ReportLab
-- Python Community
+- Python community
 
 ---
 
-## 💡 IntelliReport AI
-
-> **"Transforming Ideas into Professional Reports through Multi-Agent Artificial Intelligence."**
+> **IntelliReport AI — Transforming ideas into professional reports through multi-agent artificial intelligence.**
